@@ -20,5 +20,9 @@ func main() {
 		log.Println("error: ", err)
 	}
 
-	fmt.Println("Таблицав базе данных была создана успешно")
+	if err := simple_sql.InsertRow(ctx, conn); err != nil {
+		log.Println("error: ", err)
+	}
+
+	fmt.Println("succeed")
 }
