@@ -21,7 +21,7 @@ func main() {
 		log.Println("error: ", err)
 	}
 
-	if err := simple_sql.InsertRow(ctx, conn, "Дворик4", "Поиграть во дворе", false, time.Now()); err != nil {
+	if err := simple_sql.InsertRow(ctx, conn, "Дворик7", "Поиграть во дворе", false, time.Now()); err != nil {
 		log.Println("error: ", err) //создание новой таблицы и получение из нее ошибки
 	}
 
@@ -30,6 +30,10 @@ func main() {
 	}
 
 	if err := simple_sql.DeleteRow(ctx, conn); err != nil {
+		log.Println("error: ", err)
+	}
+
+	if err := simple_sql.SelectRows(ctx, conn); err != nil {
 		log.Println("error: ", err)
 	}
 

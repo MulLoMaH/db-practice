@@ -8,9 +8,9 @@ import (
 	"github.com/jackc/pgx/v5"
 )
 
-func SelectRows(ctx context.Context, conn pgx.Conn) error {
+func SelectRows(ctx context.Context, conn *pgx.Conn) error {
 	sqlQuery := `
-	SELECT id, title, description, completed, created_at, completed_at
+	SELECT id, title, description, completed, created_at, completet_at
 	FROM tasks
 	WHERE completed = FALSE;
 	`
@@ -40,20 +40,21 @@ func SelectRows(ctx context.Context, conn pgx.Conn) error {
 		var created_at time.Time
 		var completed_at *time.Time
 
-		err := rows.Scan(
+		err := rows.Scan( //сканируем в каждой
+			// итерации полученные значения в наши созданные переменные по указателю
 			&id,
 			&title,
 			&description,
 			&completed,
 			&created_at,
-			&completed_at,
+			&completed_at, //указатель на указатель
 		)
 
 		if err != nil {
 			return err
 		}
 
-		fmt.Println(id, title, description, completed, created_at, completed_at)
+		fmt.Println(id, title, description, completed, created_at, completed_at) //выводим на экран результат
 	}
 
 	//conn.QueryRow() вернет вервую подходящую строку под условие

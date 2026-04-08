@@ -9,7 +9,7 @@ import (
 func DeleteRow(ctx context.Context, conn *pgx.Conn) error {
 	sqlQuery := `
 	DELETE FROM tasks
-	WHERE id = 5;
+	WHERE id = 12;
 	`
 	_, err := conn.Exec(ctx, sqlQuery)
 
