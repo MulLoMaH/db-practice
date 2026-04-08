@@ -18,7 +18,7 @@ func InsertRow(
 	sqlQuery := `
 	INSERT INTO tasks (title, description, completed, created_at)
 	VALUES ($1, $2, $3, $4);
-	` //
+	` //указываем порядковый номер передаваемых параметров через $ в conn.Exec(<-)
 
 	//метод отправляет данные в БД по зарегистрированному маршруту
 	_, err := conn.Exec(ctx, sqlQuery, title, description, completed, createdAt) //отправляем данные в таблицу //
