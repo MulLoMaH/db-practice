@@ -9,8 +9,8 @@ import (
 func UpdateRow(ctx context.Context, conn *pgx.Conn) error {
 	sqlQuery := `
 	UPDATE tasks
-	SET completed = FALSE
-	WHERE id = 1;
+	SET description = ':0'
+	WHERE completed = FALSE;
 	`
 
 	_, err := conn.Exec(ctx, sqlQuery)
