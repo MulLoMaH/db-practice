@@ -2,7 +2,6 @@ package simple_sql
 
 import (
 	"context"
-	"time"
 
 	"github.com/jackc/pgx/v5"
 )
@@ -10,10 +9,7 @@ import (
 func InsertRow(
 	ctx context.Context,
 	conn *pgx.Conn,
-	title string,
-	description string,
-	completed bool,
-	createdAt time.Time,
+	task TaskModel,
 ) error { //добавляем строки в БД
 	sqlQuery := `
 	INSERT INTO tasks (title, description, completed, created_at)
@@ -21,7 +17,14 @@ func InsertRow(
 	` //указываем порядковый номер передаваемых параметров через $ в conn.Exec(<-)
 
 	//метод отправляет данные в БД по зарегистрированному маршруту
-	_, err := conn.Exec(ctx, sqlQuery, title, description, completed, createdAt) //отправляем данные в таблицу //
+	_, err := conn.Exec(
+		ctx,
+		sqlQuery,
+		task.Title,
+		task.Description,
+		task.Completed,
+		task.Created_at,
+	) //отправляем данные в таблицу //
 
 	return err //если будет ошибка то вернется она если нил то нил
 	//обработка в другой функции все равно
