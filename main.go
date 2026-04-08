@@ -6,6 +6,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"time"
 )
 
 func main() {
@@ -20,8 +21,12 @@ func main() {
 		log.Println("error: ", err)
 	}
 
-	if err := simple_sql.InsertRow(ctx, conn); err != nil {
-		log.Println("error: ", err)
+	if err := simple_sql.InsertRow(ctx, conn, "Дворик1", "Поиграть во дворе", false, time.Now()); err != nil {
+		log.Println("error: ", err) //создание новой таблицы и получение из нее ошибки
+	}
+
+	if err := simple_sql.UpdateRow(ctx, conn); err != nil {
+		log.Println("error: ", err) // смена статуса выполнения по id на true
 	}
 
 	fmt.Println("succeed")

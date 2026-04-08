@@ -2,18 +2,26 @@ package simple_sql
 
 import (
 	"context"
+	"time"
 
 	"github.com/jackc/pgx/v5"
 )
 
-func InsertRow(ctx context.Context, conn *pgx.Conn) error { //добавляем строки в БД
+func InsertRow(
+	ctx context.Context,
+	conn *pgx.Conn,
+	title string,
+	description string,
+	completed bool,
+	createdAt time.Time,
+) error { //добавляем строки в БД
 	sqlQuery := `
 	INSERT INTO tasks (title, description, completed, created_at)
-	VALUES ('Домашка', 'Сделать домашку по матеше до 20.03.26', FALSE, '2025-11-26 18:00:05');
-	`
+	VALUES ($1, $2, $3, $4);
+	` //
 
 	//метод отправляет данные в БД по зарегистрированному маршруту
-	_, err := conn.Exec(ctx, sqlQuery) //отправляем данные в таблицус
+	_, err := conn.Exec(ctx, sqlQuery, title, description, completed, createdAt) //отправляем данные в таблицу //
 
 	return err //если будет ошибка то вернется она если нил то нил
 	//обработка в другой функции все равно
